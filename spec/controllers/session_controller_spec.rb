@@ -14,6 +14,7 @@ RSpec.describe SessionsController do
 
     it 'sets session[:name] if :name was given' do
       me = 'Werner Brandes'
+      User.create(name: me)
       post :create, name: me
       expect(@request.session[:name]).to eq me
     end
@@ -26,6 +27,7 @@ RSpec.describe SessionsController do
     end
 
     it 'clears session[:name] if it was set' do
+      User.create(name: "Trinity")
       post :create, name: 'Trinity'
       expect(@request.session[:name]).to_not be nil
       post :destroy
